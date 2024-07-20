@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_9141235424864fe2e5c1dcfca3e49d5f {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_9141235424864fe2e5c1dcfca3e49d5f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_9141235424864fe2e5c1dcfca3e49d5f = L.map(
+                "map_9141235424864fe2e5c1dcfca3e49d5f",
+                {
+                    center: [4.5833, 97.9333],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_652a4882e07ca1b96074e1440533c253 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detectRetina": false, "maxNativeZoom": 19, "maxZoom": 19, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+        
+    
+            tile_layer_652a4882e07ca1b96074e1440533c253.addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var circle_marker_a9383e54f71ff67e1fd5050750dd14e1 = L.circleMarker(
+                [4.336488, 98.0338871258385],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_69ffe33cb7663f8129ba03d23249d6d9 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7aa33fde35bd30854e41777ffdf4f638 = $(`<div id="html_7aa33fde35bd30854e41777ffdf4f638" style="width: 100.0%; height: 100.0%;">Karang Baru (M1) - Parah</div>`)[0];
+                popup_69ffe33cb7663f8129ba03d23249d6d9.setContent(html_7aa33fde35bd30854e41777ffdf4f638);
+            
+        
+
+        circle_marker_a9383e54f71ff67e1fd5050750dd14e1.bindPopup(popup_69ffe33cb7663f8129ba03d23249d6d9)
+        ;
+
+        
+    
+    
+            var marker_ba088302c37279a6f3efc2cb70d178e6 = L.marker(
+                [4.336488, 98.0338871258385],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_6fb837d31d4a77787b2a89bba437c9d9 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eKarang Baru\u003c/div\u003e"});
+            marker_ba088302c37279a6f3efc2cb70d178e6.setIcon(div_icon_6fb837d31d4a77787b2a89bba437c9d9);
+        
+    
+            var circle_marker_c15e571e06afe1e28bc67fcddeba1a00 = L.circleMarker(
+                [4.15220175, 97.85185370751563],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_3f6aa80d60646b5f74fbe87039f875e9 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_5e2d44886275f7620f16e23f71ee8735 = $(`<div id="html_5e2d44886275f7620f16e23f71ee8735" style="width: 100.0%; height: 100.0%;">Tamiang Hulu (M2) - Normal</div>`)[0];
+                popup_3f6aa80d60646b5f74fbe87039f875e9.setContent(html_5e2d44886275f7620f16e23f71ee8735);
+            
+        
+
+        circle_marker_c15e571e06afe1e28bc67fcddeba1a00.bindPopup(popup_3f6aa80d60646b5f74fbe87039f875e9)
+        ;
+
+        
+    
+    
+            var marker_a6a392c7191248ce7a2f754ac06f3c9d = L.marker(
+                [4.15220175, 97.85185370751563],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_25da3a67f64ea686e57ae61e819a694e = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eTamiang Hulu\u003c/div\u003e"});
+            marker_a6a392c7191248ce7a2f754ac06f3c9d.setIcon(div_icon_25da3a67f64ea686e57ae61e819a694e);
+        
+    
+            var circle_marker_d085de104e04e14ff3c7fecd5d2c5f57 = L.circleMarker(
+                [4.309874000000001, 98.09810977892025],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_a9d6c85f26f17281249a22c299fe754f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9ef85f4c7784dda4c4fe4b944068fa18 = $(`<div id="html_9ef85f4c7784dda4c4fe4b944068fa18" style="width: 100.0%; height: 100.0%;">Rantau (M3) - Parah</div>`)[0];
+                popup_a9d6c85f26f17281249a22c299fe754f.setContent(html_9ef85f4c7784dda4c4fe4b944068fa18);
+            
+        
+
+        circle_marker_d085de104e04e14ff3c7fecd5d2c5f57.bindPopup(popup_a9d6c85f26f17281249a22c299fe754f)
+        ;
+
+        
+    
+    
+            var marker_f275a67c976ab659ff596cbd03747133 = L.marker(
+                [4.309874000000001, 98.09810977892025],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_dfc6aebbf77ad48367f2448bb9e54e13 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eRantau\u003c/div\u003e"});
+            marker_f275a67c976ab659ff596cbd03747133.setIcon(div_icon_dfc6aebbf77ad48367f2448bb9e54e13);
+        
+    
+            var circle_marker_d2ab6cc4167d21176933d1d017f9dbe5 = L.circleMarker(
+                [4.3524345, 98.20129065415438],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_2fd661fbfe29b0d846a210a36c49f834 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_efc2c8c3f925b195d8c801591a46ca90 = $(`<div id="html_efc2c8c3f925b195d8c801591a46ca90" style="width: 100.0%; height: 100.0%;">Seruway (M4) - Sedang</div>`)[0];
+                popup_2fd661fbfe29b0d846a210a36c49f834.setContent(html_efc2c8c3f925b195d8c801591a46ca90);
+            
+        
+
+        circle_marker_d2ab6cc4167d21176933d1d017f9dbe5.bindPopup(popup_2fd661fbfe29b0d846a210a36c49f834)
+        ;
+
+        
+    
+    
+            var marker_a21fe86829680caa02ccba634bce34f8 = L.marker(
+                [4.3524345, 98.20129065415438],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_0e152ff85da702b2a278fbfc9b0166f9 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eSeruway\u003c/div\u003e"});
+            marker_a21fe86829680caa02ccba634bce34f8.setIcon(div_icon_0e152ff85da702b2a278fbfc9b0166f9);
+        
+    
+            var circle_marker_3e6a740c5c0184c012a0c3f69e98eef3 = L.circleMarker(
+                [4.4422464999999995, 98.14116764603024],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_c2e1402c1edbe9f392ccca174667ef14 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_44b7cc3ef86b1ccceedb9bca3ee5e6f1 = $(`<div id="html_44b7cc3ef86b1ccceedb9bca3ee5e6f1" style="width: 100.0%; height: 100.0%;">Banda Mulia (M5) - Rendah</div>`)[0];
+                popup_c2e1402c1edbe9f392ccca174667ef14.setContent(html_44b7cc3ef86b1ccceedb9bca3ee5e6f1);
+            
+        
+
+        circle_marker_3e6a740c5c0184c012a0c3f69e98eef3.bindPopup(popup_c2e1402c1edbe9f392ccca174667ef14)
+        ;
+
+        
+    
+    
+            var marker_3e49831f79a70dffe342f8d7dd561e45 = L.marker(
+                [4.4422464999999995, 98.14116764603024],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_234cfd13c8c4fc9d81d68e35dce4e937 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eBanda Mulia\u003c/div\u003e"});
+            marker_3e49831f79a70dffe342f8d7dd561e45.setIcon(div_icon_234cfd13c8c4fc9d81d68e35dce4e937);
+        
+    
+            var circle_marker_e95d61f1e82076d739975d1fd76aefce = L.circleMarker(
+                [4.418093, 98.2116961958092],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_a1e6f7d5c511c3b6c22abe2e1f2d83d7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_650f2fb1c8092b5cdc18f5bc91580a7d = $(`<div id="html_650f2fb1c8092b5cdc18f5bc91580a7d" style="width: 100.0%; height: 100.0%;">Bendahara (M6) - Sedang</div>`)[0];
+                popup_a1e6f7d5c511c3b6c22abe2e1f2d83d7.setContent(html_650f2fb1c8092b5cdc18f5bc91580a7d);
+            
+        
+
+        circle_marker_e95d61f1e82076d739975d1fd76aefce.bindPopup(popup_a1e6f7d5c511c3b6c22abe2e1f2d83d7)
+        ;
+
+        
+    
+    
+            var marker_b0b16d111dffd7a88d603761d648aad6 = L.marker(
+                [4.418093, 98.2116961958092],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_a320d73b98baf19e031ba9996491329e = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eBendahara\u003c/div\u003e"});
+            marker_b0b16d111dffd7a88d603761d648aad6.setIcon(div_icon_a320d73b98baf19e031ba9996491329e);
+        
+    
+            var circle_marker_3207fb91190af733011c7346863a2198 = L.circleMarker(
+                [4.438879, 98.07468748403187],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_459b22c7206112262dfbbf921ad1c9bb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1879c8f5a3e3dd6a1c8df8b591fcc885 = $(`<div id="html_1879c8f5a3e3dd6a1c8df8b591fcc885" style="width: 100.0%; height: 100.0%;">Manyak Payed (M7) - Normal</div>`)[0];
+                popup_459b22c7206112262dfbbf921ad1c9bb.setContent(html_1879c8f5a3e3dd6a1c8df8b591fcc885);
+            
+        
+
+        circle_marker_3207fb91190af733011c7346863a2198.bindPopup(popup_459b22c7206112262dfbbf921ad1c9bb)
+        ;
+
+        
+    
+    
+            var marker_0d6339f705c9254f432507bd599c8e0f = L.marker(
+                [4.438879, 98.07468748403187],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_cc20f3eb79ada753df5956a62c0396aa = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eManyak Payed\u003c/div\u003e"});
+            marker_0d6339f705c9254f432507bd599c8e0f.setIcon(div_icon_cc20f3eb79ada753df5956a62c0396aa);
+        
+    
+            var circle_marker_c950a08a210fe3b22c22de95fdbdecb4 = L.circleMarker(
+                [3.986316, 97.9859769],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_490c3a7a6e2f49d91c8872523963f299 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1751c88babee2f4a7e34227419e55fa0 = $(`<div id="html_1751c88babee2f4a7e34227419e55fa0" style="width: 100.0%; height: 100.0%;">Tenggulun (M8) - Rendah</div>`)[0];
+                popup_490c3a7a6e2f49d91c8872523963f299.setContent(html_1751c88babee2f4a7e34227419e55fa0);
+            
+        
+
+        circle_marker_c950a08a210fe3b22c22de95fdbdecb4.bindPopup(popup_490c3a7a6e2f49d91c8872523963f299)
+        ;
+
+        
+    
+    
+            var marker_929e9cb72bad335611ccd836b333d2bc = L.marker(
+                [3.986316, 97.9859769],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_4c7c2ed93950b4fb3f32ad51d3bcd148 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eTenggulun\u003c/div\u003e"});
+            marker_929e9cb72bad335611ccd836b333d2bc.setIcon(div_icon_4c7c2ed93950b4fb3f32ad51d3bcd148);
+        
+    
+            var circle_marker_8b268e71f7e22754c808b9b892718487 = L.circleMarker(
+                [4.1943295, 98.02260565480667],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_d53207039a663ba6d6ca71f38ea3829b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_4bac5abe8d40c58c65eca2d832e6cdc9 = $(`<div id="html_4bac5abe8d40c58c65eca2d832e6cdc9" style="width: 100.0%; height: 100.0%;">Kejuruan Muda (M9) - Sedang</div>`)[0];
+                popup_d53207039a663ba6d6ca71f38ea3829b.setContent(html_4bac5abe8d40c58c65eca2d832e6cdc9);
+            
+        
+
+        circle_marker_8b268e71f7e22754c808b9b892718487.bindPopup(popup_d53207039a663ba6d6ca71f38ea3829b)
+        ;
+
+        
+    
+    
+            var marker_28d3a9e3c127ccf34a29c50af5625d55 = L.marker(
+                [4.1943295, 98.02260565480667],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_cdb4e63bd0c957d888d9ce477bcf5e65 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eKejuruan Muda\u003c/div\u003e"});
+            marker_28d3a9e3c127ccf34a29c50af5625d55.setIcon(div_icon_cdb4e63bd0c957d888d9ce477bcf5e65);
+        
+    
+            var circle_marker_7d106b7282dc5d8fa1742b203e483cf4 = L.circleMarker(
+                [4.2745274, 98.0323831],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_b52337062337abfcb0f2e77f5998eb05 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_2340387566c823546c70b1542245e4ec = $(`<div id="html_2340387566c823546c70b1542245e4ec" style="width: 100.0%; height: 100.0%;">Sekerak (M10) - Rendah</div>`)[0];
+                popup_b52337062337abfcb0f2e77f5998eb05.setContent(html_2340387566c823546c70b1542245e4ec);
+            
+        
+
+        circle_marker_7d106b7282dc5d8fa1742b203e483cf4.bindPopup(popup_b52337062337abfcb0f2e77f5998eb05)
+        ;
+
+        
+    
+    
+            var marker_48e4786064f801784d79d56a1ea7bfb5 = L.marker(
+                [4.2745274, 98.0323831],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_f0e0baffaa88474b0b4545dc6480d5d4 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eSekerak\u003c/div\u003e"});
+            marker_48e4786064f801784d79d56a1ea7bfb5.setIcon(div_icon_f0e0baffaa88474b0b4545dc6480d5d4);
+        
+    
+            var circle_marker_c917caf6a9752e6b54fa3470dfb799b7 = L.circleMarker(
+                [4.2844005, 97.84363774643285],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_8c95f2d0d7e7f6450c5a97ecf61feb8d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d4f708424412320cf887f35d67c2fbf3 = $(`<div id="html_d4f708424412320cf887f35d67c2fbf3" style="width: 100.0%; height: 100.0%;">Bandar Pusaka (M11) - Normal</div>`)[0];
+                popup_8c95f2d0d7e7f6450c5a97ecf61feb8d.setContent(html_d4f708424412320cf887f35d67c2fbf3);
+            
+        
+
+        circle_marker_c917caf6a9752e6b54fa3470dfb799b7.bindPopup(popup_8c95f2d0d7e7f6450c5a97ecf61feb8d)
+        ;
+
+        
+    
+    
+            var marker_d8e47ca53fd41704bea98e3dc105cdbb = L.marker(
+                [4.2844005, 97.84363774643285],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_74d588249f761ad278866790943141d8 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eBandar Pusaka\u003c/div\u003e"});
+            marker_d8e47ca53fd41704bea98e3dc105cdbb.setIcon(div_icon_74d588249f761ad278866790943141d8);
+        
+    
+            var circle_marker_5409cfc3fbccd84d4415e7929965fdb4 = L.circleMarker(
+                [4.2839266, 98.0608382],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10, "stroke": true, "weight": 3}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+        var popup_05821f8cae066c0dcbd39a4e94f07b54 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f0ae6e3ec8d12b52716913fc7a995974 = $(`<div id="html_f0ae6e3ec8d12b52716913fc7a995974" style="width: 100.0%; height: 100.0%;">Kuala Simpang (M12) - Parah</div>`)[0];
+                popup_05821f8cae066c0dcbd39a4e94f07b54.setContent(html_f0ae6e3ec8d12b52716913fc7a995974);
+            
+        
+
+        circle_marker_5409cfc3fbccd84d4415e7929965fdb4.bindPopup(popup_05821f8cae066c0dcbd39a4e94f07b54)
+        ;
+
+        
+    
+    
+            var marker_886165a5c7097c6fc254a5207247e9a5 = L.marker(
+                [4.2839266, 98.0608382],
+                {}
+            ).addTo(map_9141235424864fe2e5c1dcfca3e49d5f);
+        
+    
+            var div_icon_df0368ab6810827859aaec0baa2c4846 = L.divIcon({"className": "empty", "html": "\u003cdiv style=\"font-size: 12pt\"\u003eKuala Simpang\u003c/div\u003e"});
+            marker_886165a5c7097c6fc254a5207247e9a5.setIcon(div_icon_df0368ab6810827859aaec0baa2c4846);
+        
+</script>
+</html>
