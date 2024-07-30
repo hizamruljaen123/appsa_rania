@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Admin Dashboard - Pemetaan TBC Aceh Tamiang</title>
+
+    <!-- Metro UI -->
+    <link rel="stylesheet" href="https://cdn.metroui.org.ua/current/metro.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <!-- ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+
+    <!-- Custom CSS for Sidebar Toggle -->
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            height: 100%;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            padding-top: 20px;
+            transition: 0.3s;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .sidebar .close-btn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 30px;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+        .open-sidebar-btn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            display: none;
+        }
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                padding-top: 60px;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .open-sidebar-btn {
+                display: block;
+            }
+        }
+    </style>
+
+<style>
+    .modal-content {
+        padding: 20px;
+    }
+    .editable {
+        border: 1px solid #ddd;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .modal-content {
+            padding: 20px;
+        }
+        .editable {
+            border: 1px solid #ddd;
+            padding: 5px;
+            cursor: pointer;
+        }
+        #editModal {
+            width: 90% !important;
+            height: 90% !important;
+            top: 5% !important;
+            left: 5% !important;
+            transform: none !important;
+        }
+        .dialog-content {
+            height: calc(100% - 80px);
+            overflow-y: auto;
+        }
+        .table {
+            width: 100%;
+        }
+</style>
+</head>
+<body>
+    <div class="sidebar" id="sidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">&times;</a>
+        <a href="#dashboard" >Dashboard</a>
+        <a href="#maps">Peta TBC</a>
+        <a href="#data" onclick="openModal()">Data Per Jenis</a>
+        <a href="#data" onclick="openModal()">Data Per Usia</a>
+        <a href="#charts">Grafik</a>
+    </div>
+
+    <div class="main-content" id="main-content">
+        <button class="open-sidebar-btn" onclick="openSidebar()">&#9776; Menu</button>
+
+        <div id="dashboard" class="grid">
+            <h2>Dashboard</h2>
+            <div class="row mt-10">
+                <div class="cell-md-4">
+                    <div class="card bg-lightBlue fg-white">
+                        <div class="card-header">
+                            <div class="card-title h4">Total Kasus TBC</div>
+                            <div class="card-subtitle text-small">Total reported cases</div>
+                        </div>
+                        <div class="card-content p-2">
+                            <span class="mif-bubbles icon"></span>
+                            <span class="display2">314</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cell-md-4">
+                    <div class="card bg-darkRed fg-white">
+                        <div class="card-header">
+                            <div class="card-title h4">Kasus TBC Parah</div>
+                            <div class="card-subtitle text-small">Severe cases</div>
+                        </div>
+                        <div class="card-content p-2">
+                            <span class="mif-bubble icon"></span>
+                            <span class="display2">105</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cell-md-4">
+                    <div class="card bg-amber fg-white">
+                        <div class="card-header">
+                            <div class="card-title h4">Kasus TBC Ringan</div>
+                            <div class="card-subtitle text-small">Mild cases</div>
+                        </div>
+                        <div class="card-content p-2">
+                            <span class="mif-bubble icon"></span>
+                            <span class="display2">209</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="charts" class="mt-10">
+                <h2>Grafik Kasus TBC</h2>
+                <div class="grid">
+                    <div class="row">
+                        <div class="cell-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title h4">Jumlah Kasus TBC per Kecamatan</div>
+                                </div>
+                                <div class="card-content p-2">
+                                    <div id="chart1" style="height: 250px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cell-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title h4">Distribusi Klaster TBC</div>
+                                </div>
+                                <div class="card-content p-2">
+                                    <div id="chart2" style="height: 250px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="cell-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title h4">Jumlah Kasus TBC Berdasarkan Kategori</div>
+                                </div>
+                                <div class="card-content p-2">
+                                    <div id="chart3" style="height: 250px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cell-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title h4">Kasus TBC Berdasarkan Jenis</div>
+                                </div>
+                                <div class="card-content p-2">
+                                    <div id="chart4" style="height: 250px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-10">
+                <div class="cell-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title h4">Kasus TBC Berdasarkan Jenis</div>
+                        </div>
+                        <div class="card-content p-2">
+                            <div id="tb-type-chart" style="height: 250px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cell-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title h4">Wilayah Terparah</div>
+                            <div class="card-subtitle text-small">Most severe region</div>
+                        </div>
+                        <div class="card-content p-2">
+                            <span class="mif-location icon"></span>
+                            <span class="display2">Rantau</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cell-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title h4">Wilayah Paling Aman</div>
+                            <div class="card-subtitle text-small">Safest region</div>
+                        </div>
+                        <div class="card-content p-2">
+                            <span class="mif-location icon"></span>
+                            <span class="display2">Sekerak</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="maps" class="mt-10">
+            <h2>Peta Kasus TBC di Aceh Tamiang</h2>
+            <div id="map" style="height: 400px;"></div>
+        </div>
+
+        <div id="data" class="mt-10">
+            <h2>Data Kasus TBC per Kecamatan</h2>
+            <table class="table striped table-border mt-4">
+                <thead>
+                    <tr>
+                        <th>Kecamatan</th>
+                        <th>Paru</th>
+                        <th>Ekstraparu</th>
+                        <th>Milier</th>
+                        <th>Meningitis</th>
+                        <th>Kelenjar</th>
+                        <th>Usus</th>
+                        <th>Tulang</th>
+                        <th>Kulit</th>
+                        <th>Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Karang Baru</td>
+                        <td>15</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>28</td>
+                    </tr>
+                    <tr>
+                        <td>Tamiang Hulu</td>
+                        <td>10</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Rantau</td>
+                        <td>20</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>Seruway</td>
+                        <td>12</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>27</td>
+                    </tr>
+                    <tr>
+                        <td>Banda Mulia</td>
+                        <td>8</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>16</td>
+                    </tr>
+                    <tr>
+                        <td>Bendahara</td>
+                        <td>14</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>29</td>
+                    </tr>
+                    <tr>
+                        <td>Manyak Payed</td>
+                        <td>11</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>23</td>
+                    </tr>
+                    <tr>
+                        <td>Tenggulun</td>
+                        <td>9</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>18</td>
+                    </tr>
+                    <tr>
+                        <td>Kejuruan Muda</td>
+                        <td>13</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>25</td>
+                    </tr>
+                    <tr>
+                        <td>Sekerak</td>
+                        <td>7</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>Bandar Pusaka</td>
+                        <td>10</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>19</td>
+                    </tr>
+                    <tr>
+                        <td>Kuala Simpang</td>
+                        <td>18</td>
+                        <td>4</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>38</td>
+                    </tr>
+                    <tr>
+                        <td>Kota Kualasimpang</td>
+                        <td>16</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>31</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <d<div class="dialog" data-role="dialog" id="editModal" style="width: 90%; height: 90%;">
+            <div class="dialog-header">
+                <div class="dialog-title">Edit Data Kasus TBC</div>
+            </div>
+            <div class="dialog-content" style="height: calc(100% - 80px); overflow-y: auto;">
+                <div class="modal-content" style="width: 100%;">
+                    <table class="table striped table-border mt-4" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Kecamatan</th>
+                                <th>Paru</th>
+                                <th>Ekstraparu</th>
+                                <th>Milier</th>
+                                <th>Meningitis</th>
+                                <th>Kelenjar</th>
+                                <th>Usus</th>
+                                <th>Tulang</th>
+                                <th>Kulit</th>
+                                <th>Jumlah</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table">
+                            <tr>
+                                <td>Karang Baru</td>
+                                <td contenteditable="true" class="editable">15</td>
+                                <td contenteditable="true" class="editable">3</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">4</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">0</td>
+                                <td>28</td>
+                            </tr>
+                            <tr>
+                                <td>Tamiang Hulu</td>
+                                <td contenteditable="true" class="editable">10</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">3</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>Rantau</td>
+                                <td contenteditable="true" class="editable">20</td>
+                                <td contenteditable="true" class="editable">4</td>
+                                <td contenteditable="true" class="editable">3</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">5</td>
+                                <td contenteditable="true" class="editable">3</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td>40</td>
+                            </tr>
+                            <tr>
+                                <td>Seruway</td>
+                                <td contenteditable="true" class="editable">12</td>
+                                <td contenteditable="true" class="editable">3</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">4</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td>27</td>
+                            </tr>
+                            <tr>
+                                <td>Banda Mulia</td>
+                                <td contenteditable="true" class="editable">8</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">0</td>
+                                <td>16</td>
+                            </tr>
+                            <tr>
+                                <td>Bendahara</td>
+                                <td contenteditable="true" class="editable">14</td>
+                                <td contenteditable="true" class="editable">3</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">4</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td>29</td>
+                            </tr>
+                            <tr>
+                                <td>Manyak Payed</td>
+                                <td contenteditable="true" class="editable">11</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">3</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td>23</td>
+                            </tr>
+                            <tr>
+                                <td>Tenggulun</td>
+                                <td contenteditable="true" class="editable">9</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td>18</td>
+                            </tr>
+                            <tr>
+                                <td>Kejuruan Muda</td>
+                                <td contenteditable="true" class="editable">13</td>
+                                <td contenteditable="true" class="editable">3</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">0</td>
+                                <td>25</td>
+                            </tr>
+                            <tr>
+                                <td>Sekerak</td>
+                                <td contenteditable="true" class="editable">7</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">0</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td>15</td>
+                            </tr>
+                            <tr>
+                                <td>Bandar Pusaka</td>
+                                <td contenteditable="true" class="editable">10</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td>19</td>
+                            </tr>
+                            <tr>
+                                <td>Kuala Simpang</td>
+                                <td contenteditable="true" class="editable">18</td>
+                                <td contenteditable="true" class="editable">4</td>
+                                <td contenteditable="true" class="editable">3</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">5</td>
+                                <td contenteditable="true" class="editable">3</td>
+                                <td contenteditable="true" class="editable">2</td>
+                                <td contenteditable="true" class="editable">1</td>
+                                <td>38</td>
+                                </tr>
+                                </tbody>
+                                </table>
+                                </div>
+                                </div>
+                                </div>
+
+
+    </div>
+
+    <!-- Metro UI -->
+    <script src="https://cdn.metroui.org.ua/current/metro.js"></script>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- ECharts JS -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+
+    <script>
+        // Sidebar Toggle Functions
+        function openSidebar() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main-content").style.marginLeft = "250px";
+        }
+
+        function closeSidebar() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main-content").style.marginLeft = "0";
+        }
+
+        // Initialize Leaflet Map
+        var map = L.map('map').setView([4.264, 97.926], 10); // Koordinat Aceh Tamiang
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Add markers for each kecamatan
+        var data = [
+            {kecamatan: "Karang Baru", coords: [4.264, 97.926], cases: 28},
+            {kecamatan: "Tamiang Hulu", coords: [4.420, 97.950], cases: 20},
+            {kecamatan: "Rantau", coords: [4.450, 98.150], cases: 40},
+            {kecamatan: "Seruway", coords: [4.070, 98.050], cases: 27},
+            {kecamatan: "Banda Mulia", coords: [4.220, 97.910], cases: 16},
+            {kecamatan: "Bendahara", coords: [4.400, 97.850], cases: 29},
+            {kecamatan: "Manyak Payed", coords: [4.380, 97.780], cases: 23},
+            {kecamatan: "Tenggulun", coords: [4.080, 98.200], cases: 18},
+            {kecamatan: "Kejuruan Muda", coords: [4.100, 97.900], cases: 25},
+            {kecamatan: "Sekerak", coords: [4.290, 97.960], cases: 15},
+            {kecamatan: "Bandar Pusaka", coords: [4.260, 97.800], cases: 19},
+            {kecamatan: "Kuala Simpang", coords: [4.650, 97.900], cases: 38},
+            {kecamatan: "Kota Kualasimpang", coords: [4.560, 97.780], cases: 31}
+        ];
+
+        data.forEach(function(item) {
+            L.marker(item.coords).addTo(map)
+                .bindPopup(item.kecamatan + ': ' + item.cases + ' Kasus');
+        });
+
+        // Initialize ECharts
+        var chart1 = echarts.init(document.getElementById('chart1'));
+        var chart2 = echarts.init(document.getElementById('chart2'));
+        var chart3 = echarts.init(document.getElementById('chart3'));
+        var chart4 = echarts.init(document.getElementById('chart4'));
+
+        var option1 = {
+            title: {
+                text: 'Jumlah Kasus TBC per Kecamatan'
+            },
+            tooltip: {},
+            xAxis: {
+                type: 'category',
+                data: data.map(item => item.kecamatan)
+            },
+            yAxis: {},
+            series: [{
+                name: 'Jumlah Kasus',
+                type: 'bar',
+                data: data.map(item => item.cases)
+            }]
+        };
+
+        var option2 = {
+            title: {
+                text: 'Distribusi Klaster TBC'
+            },
+            tooltip: {},
+            series: [{
+                name: 'Klaster',
+                type: 'pie',
+                radius: '50%',
+                data: data.map(item => ({value: item.cases, name: item.kecamatan}))
+            }]
+        };
+
+        var option3 = {
+            title: {
+                text: 'Jumlah Kasus TBC Berdasarkan Kategori Usia'
+            },
+            tooltip: {},
+            xAxis: {
+                type: 'category',
+                data: ['0-10', '11-20', '21-30', '31-40', '41-50', '51-60', '61+']
+            },
+            yAxis: {},
+            series: [{
+                name: 'Jumlah Kasus',
+                type: 'bar',
+                data: [15, 30, 45, 60, 40, 50, 30] // Data sampel, ganti dengan data yang sesuai
+            }]
+        };
+
+        var option4 = {
+            title: {
+                text: 'Kasus TBC Berdasarkan Jenis'
+            },
+            tooltip: {},
+            series: [{
+                name: 'Jenis',
+                type: 'pie',
+                radius: '50%',
+                data: [
+                    {value: 174, name: 'Paru'},
+                    {value: 33, name: 'Ekstraparu'},
+                    {value: 20, name: 'Milier'},
+                    {value: 17, name: 'Meningitis'},
+                    {value: 36, name: 'Kelenjar'},
+                    {value: 18, name: 'Usus'},
+                    {value: 14, name: 'Tulang'},
+                    {value: 8, name: 'Kulit'}
+                ]
+            }]
+        };
+        // Initialize ECharts for TB type chart
+    var tbTypeChart = echarts.init(document.getElementById('tb-type-chart'));
+
+var tbTypeOption = {
+    title: {
+        text: 'Kasus TBC Berdasarkan Jenis'
+    },
+    tooltip: {},
+    series: [{
+        name: 'Jenis TBC',
+        type: 'pie',
+        radius: '50%',
+        data: [
+            {value: 174, name: 'Paru'},
+            {value: 33, name: 'Ekstraparu'},
+            {value: 20, name: 'Milier'},
+            {value: 17, name: 'Meningitis'},
+            {value: 36, name: 'Kelenjar'},
+            {value: 18, name: 'Usus'},
+            {value: 14, name: 'Tulang'},
+            {value: 8, name: 'Kulit'}
+        ]
+    }]
+};
+
+tbTypeChart.setOption(tbTypeOption);
+
+        
+
+        chart1.setOption(option1);
+        chart2.setOption(option2);
+        chart3.setOption(option3);
+        chart4.setOption(option4);
+
+        function openModal() {
+            Metro.dialog.open('#editModal');
+        }
+
+        function closeModal() {
+            Metro.dialog.close('#editModal');
+        }
+
+        function saveChanges() {
+            // Implement save functionality here
+            closeModal();
+        }
+        document.querySelectorAll('.editable').forEach(cell => {
+            cell.addEventListener('input', updateTotal);
+        });
+
+        function updateTotal(event) {
+            const row = event.target.parentElement;
+            let total = 0;
+            row.querySelectorAll('.editable').forEach(cell => {
+                total += parseInt(cell.innerText) || 0;
+            });
+            row.querySelector('td:last-child').innerText = total;
+        }
+    </script>
+</body>
+</html>
